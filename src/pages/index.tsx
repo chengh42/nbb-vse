@@ -2,12 +2,13 @@ import Image from "next/image";
 import {Inter} from "next/font/google";
 import LEAGUES from "../data/LEAGUES.json";
 import {useState} from "react";
+import {League} from "@/types/League";
 
 const inter = Inter({subsets: ["latin"]});
-const leagues = LEAGUES["Vrouwen Senioren Landelijk"];
 
 export default function Home() {
-  const [league, setLeague] = useState(leagues[1]);
+  const leagues: Array<League> = LEAGUES["Vrouwen Senioren Landelijk"];
+  const [league, setLeague] = useState<League>(leagues[0]);
 
   const LeagueMenu = () => (
     <select
@@ -15,7 +16,12 @@ export default function Home() {
       value={league.id}
       onChange={(ev) => {
         const seletedLeagueId = Number(ev.target.value);
-        setLeague(leagues.find(({id}) => seletedLeagueId === id));
+        const seletedLeague = leagues.find(({id}) => seletedLeagueId === id);
+        if (seletedLeague) {
+          setLeague(seletedLeague);
+        } else {
+          alert(`Cannot load league for unknown id ${seletedLeagueId}`);
+        }
       }}
     >
       {leagues.map(({id, name}) => (
