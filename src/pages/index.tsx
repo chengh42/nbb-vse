@@ -1,16 +1,26 @@
 import {useEffect, useState} from "react";
 import Image from "next/image";
 import {Inter} from "next/font/google";
+
 import {League} from "@/types/League";
 import {Standing} from "@/types/Standing";
+import {Team as TeamProps} from "@/types/Team";
+
 import LEAGUES from "../data/LEAGUES.json";
 import Team from "@/components/Team";
+import Loader from "@/components/Loader";
 
 const inter = Inter({subsets: ["latin"]});
 
-const LeagueBoard = ({isLoading, teams}): React.ReactNode => {
+const LeagueBoard = ({
+  isLoading,
+  teams,
+}: {
+  isLoading: boolean;
+  teams: TeamProps[] | undefined;
+}): JSX.Element => {
   if (isLoading) {
-    return <p>Loading ...</p>;
+    return <Loader />;
   }
   if (!teams) {
     return <p>Cannot load standing data for this league.</p>;
