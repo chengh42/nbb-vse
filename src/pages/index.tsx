@@ -6,11 +6,16 @@ import {League} from "@/types/League";
 import {Standing} from "@/types/Standing";
 import {Team as TeamProps} from "@/types/Team";
 
-import LEAGUES from "../data/LEAGUES.json";
+import _LEAGUES from "../data/LEAGUES.json";
 import Team from "@/components/Team";
 import Loader from "@/components/Loader";
+import Navbar from "@/components/Navbar";
 
 const inter = Inter({subsets: ["latin"]});
+
+type LeagueGroups = {[leagueGroup: string]: League[]};
+const LEAGUES = _LEAGUES as LeagueGroups;
+type LeagueGroupName = keyof LeagueGroups;
 
 const LeagueBoard = ({
   isLoading,
@@ -35,14 +40,33 @@ const LeagueBoard = ({
 };
 
 export default function Home() {
-  const leagues: Array<League> = LEAGUES["Vrouwen Senioren Landelijk"];
+  const leagueGroupNames = Object.keys(LEAGUES) as LeagueGroupName[];
+  const [leagueGroupName, setLeagueGroupName] = useState(leagueGroupNames[0]);
+  const leagues: Array<League> = LEAGUES[leagueGroupName];
   const [league, setLeague] = useState<League>(leagues[0]);
   const [standing, setStanding] = useState<Standing | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
+  const LeagueGroupMenu = () => (
+    <select
+      className="text-lg rounded-lg p-4 m-2"
+      value={leagueGroupName}
+      onChange={(ev) => {
+        setLeagueGroupName(ev.target.value);
+        setLeague(LEAGUES[leagueGroupName][0]);
+      }}
+    >
+      {leagueGroupNames.map((leagueGroupName) => (
+        <option key={leagueGroupName} value={leagueGroupName}>
+          {leagueGroupName}
+        </option>
+      ))}
+    </select>
+  );
+
   const LeagueMenu = () => (
     <select
-      className="text-lg rounded-lg p-4"
+      className="text-lg rounded-lg p-4 m-2"
       value={league.id}
       onChange={(ev) => {
         const seletedLeagueId = Number(ev.target.value);
@@ -73,10 +97,13 @@ export default function Home() {
   }, [league]);
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-start p-24">
-      <h1 className="text-3xl py-12">NBB VSE</h1>
-      <LeagueMenu />
-      <LeagueBoard isLoading={isLoading} teams={standing?.stand} />
-    </main>
+    <>
+      <Navbar />
+      <main className="flex min-h-screen flex-col items-center justify-start p-24">
+        <LeagueGroupMenu />
+        <LeagueMenu />
+        <LeagueBoard isLoading={isLoading} teams={standing?.stand} />
+      </main>
+    </>
   );
 }
