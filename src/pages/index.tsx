@@ -6,12 +6,16 @@ import {League} from "@/types/League";
 import {Standing} from "@/types/Standing";
 import {Team as TeamProps} from "@/types/Team";
 
-import LEAGUES from "../data/LEAGUES.json";
+import _LEAGUES from "../data/LEAGUES.json";
 import Team from "@/components/Team";
 import Loader from "@/components/Loader";
 import Navbar from "@/components/Navbar";
 
 const inter = Inter({subsets: ["latin"]});
+
+type LeagueGroups = {[leagueGroup: string]: League[]};
+const LEAGUES = _LEAGUES as LeagueGroups;
+type LeagueGroupName = keyof LeagueGroups;
 
 const LeagueBoard = ({
   isLoading,
@@ -36,7 +40,7 @@ const LeagueBoard = ({
 };
 
 export default function Home() {
-  const leagueGroupNames = Object.keys(LEAGUES);
+  const leagueGroupNames = Object.keys(LEAGUES) as LeagueGroupName[];
   const [leagueGroupName, setLeagueGroupName] = useState(leagueGroupNames[0]);
   const leagues: Array<League> = LEAGUES[leagueGroupName];
   const [league, setLeague] = useState<League>(leagues[0]);
