@@ -1,17 +1,44 @@
 import {useEffect, useState} from "react";
 import Image from "next/image";
 import {Inter} from "next/font/google";
+
 import {League} from "@/types/League";
 import {Standing} from "@/types/Standing";
+import {Team as TeamProps} from "@/types/Team";
+
 import LEAGUES from "../data/LEAGUES.json";
 import Team from "@/components/Team";
+import Loader from "@/components/Loader";
 
 const inter = Inter({subsets: ["latin"]});
+
+const LeagueBoard = ({
+  isLoading,
+  teams,
+}: {
+  isLoading: boolean;
+  teams: TeamProps[] | undefined;
+}): JSX.Element => {
+  if (isLoading) {
+    return <Loader />;
+  }
+  if (!teams) {
+    return <p>Cannot load standing data for this league.</p>;
+  }
+  return (
+    <div>
+      {teams.map((team) => (
+        <Team key={team.ID} {...team} />
+      ))}
+    </div>
+  );
+};
 
 export default function Home() {
   const leagues: Array<League> = LEAGUES["Vrouwen Senioren Landelijk"];
   const [league, setLeague] = useState<League>(leagues[0]);
   const [standing, setStanding] = useState<Standing | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const LeagueMenu = () => (
     <select
@@ -34,13 +61,14 @@ export default function Home() {
       ))}
     </select>
   );
-  const teams = standing?.stand;
 
   useEffect(() => {
+    setIsLoading(true);
     fetch(`/api/standing/${league.id}`)
       .then((res) => res.json())
       .then((data) => {
         setStanding(data);
+        setIsLoading(false);
       });
   }, [league]);
 
@@ -48,15 +76,7 @@ export default function Home() {
     <main className="flex min-h-screen flex-col items-center justify-start p-24">
       <h1 className="text-3xl py-12">NBB VSE</h1>
       <LeagueMenu />
-      {teams ? (
-        <div>
-          {teams.map((team) => (
-            <Team key={team.ID} {...team} />
-          ))}
-        </div>
-      ) : (
-        <p>Loading ...</p>
-      )}
+      <LeagueBoard isLoading={isLoading} teams={standing?.stand} />
     </main>
   );
 }
