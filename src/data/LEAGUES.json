@@ -1,0 +1,51 @@
+{
+  "Vrouwen Senioren Landelijk": [
+    {
+      "id": 434,
+      "name": "1e Divisie A",
+      "number": 6442
+    },
+    {
+      "id": 2828,
+      "name": "2e Divisie A",
+      "number": 6480
+    },
+    {
+      "id": 3113,
+      "name": "2e Divisie B",
+      "number": 6435
+    },
+    {
+      "id": 2827,
+      "name": "2e Divisie C",
+      "number": 6460
+    },
+    {
+      "id": 754,
+      "name": "Promotiedivisie A",
+      "number": 6463
+    },
+    {
+      "id": 429,
+      "name": "Women's Basketball League A",
+      "number": 6413
+    },
+    {
+      "id": 1269,
+      "name": "Women's Basketball League Final Four",
+      "number": 6489
+    }
+  ],
+  "Vrouwen Senioren Landelijk Nacompetitie": [
+    {
+      "id": 430,
+      "name": "Women's Basketball League - Nacompetitie Elite A",
+      "number": 6495
+    },
+    {
+      "id": 431,
+      "name": "Women's Basketball League - Nacompetitie Elite B",
+      "number": 6471
+    }
+  ]
+}
