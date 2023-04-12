@@ -24,7 +24,9 @@
       "id": 754,
       "name": "Promotiedivisie A",
       "number": 6463
-    },
+    }
+  ],
+  "Women's Basketball League": [
     {
       "id": 429,
       "name": "Women's Basketball League A",
@@ -34,17 +36,15 @@
       "id": 1269,
       "name": "Women's Basketball League Final Four",
       "number": 6489
-    }
-  ],
-  "Vrouwen Senioren Landelijk Nacompetitie": [
+    },
     {
       "id": 430,
-      "name": "Women's Basketball League - Nacompetitie Elite A",
+      "name": "Nacompetitie Elite A",
       "number": 6495
     },
     {
       "id": 431,
-      "name": "Women's Basketball League - Nacompetitie Elite B",
+      "name": "Nacompetitie Elite B",
       "number": 6471
     }
   ]
