@@ -16,13 +16,15 @@ export default function Home() {
         <ul>
           <li>
             <Link href="/standing" className={buttonClassName}>
-              <span class="material-symbols-outlined mr-1">leaderboard</span>
+              <span className="material-symbols-outlined mr-1">
+                leaderboard
+              </span>
               Standing
             </Link>
           </li>
           <li>
             <Link href="/team/123" className={buttonClassName}>
-              <span class="material-symbols-outlined mr-1">
+              <span className="material-symbols-outlined mr-1">
                 sports_basketball
               </span>
               Teams
