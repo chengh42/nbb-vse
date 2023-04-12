@@ -8,7 +8,7 @@ export default function Team() {
     <>
       <Navbar />
       <main className="flex min-h-screen flex-col items-center justify-start p-24">
-        <p>Team: {teamId}</p>
+        <p>Team: {teamId} (Placedholer)</p>
       </main>
     </>
   );
